@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>\
+
+<head>
+    <title>ngDraggable</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootswatch/2.3.1/spruce/bootstrap.min.css">
+    <style>
+
+         *{
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        [ng-drag] {
+            -moz-user-select: -moz-none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        [ng-drag] {
+            width: 150px;
+            height: 130px;
+            background: rgba(500, 50, 50, 0.50);
+            font-size: 30px;
+            color: white;
+            text-align: center;
+            padding-top: 55px;
+            display: block;
+            cursor: move;
+        }
+
+        
+        [ng-drag].obj {
+            border: solid 50px red;
+        }
+
+        [ng-drag].obj {
+            opacity: 1;
+        }
+
+        [ng-drop] {
+            background: rgba(0, 0, 0, 0.25);
+            text-align: center;
+            display: block;
+            position: relative;
+            padding: 25px;
+            width: 200px;
+            height: 180px;
+            float: left;
+        }
+
+        [ng-drop].drag-enter {
+            border: solid 1px blue;
+        }
+
+        [ng-drop] span.title {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 20px;
+
+            margin-left: -10px;
+            margin-top: -10px;
+        }
+
+        [ng-drop] div {
+            position: relative;
+            z-index: 2;
+        }
+
+        .draglist {
+            display: inline-block;
+            margin: 1 auto;
+        }
+
+
+    </style>
+</head>
+<body ng-app="ExampleApp">
+
+
+<div class="row  text-center">
+    <h1>Draggable Ordering Example</h1>
+</div>
+<h1>UPPERCASE</h1>
+<hr/>
+<div class="row text-center" ng-controller="MainCtrl">
+    <ul class="draglist">
+        <li ng-repeat="obj in draggableObjects" ng-drop="true" ng-drop-success="onDropComplete($index, $data,$event)">
+            <div ng-drag="true" ng-drag-data="obj" ng-class="obj.name">
+                {{obj.name}} 
+            </div>
+        </li>
+    </ul>
+</div>
+
+<hr/>
+<br>
+<h1>LOWERCASE</h1>
+<hr/>
+<div class="row text-center" ng-controller="MainCtrl">
+    <ul class="draglist">
+        <li ng-repeat="obj in draggableObjects" ng-drop="true" ng-drop-success="onDropComplete($index, $data,$event)">
+            <div ng-drag="true" ng-drag-data="obj" ng-class="obj.name">
+                {{obj.name|lowercase}}
+
+            </div>
+        </li>
+    </ul>
+</div>
+
+<hr/>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+<script src="ngDraggable.js"></script>
+
+<script>
+    var x;
+    var y;
+    var z;
+    angular.module('ExampleApp', ['ngDraggable']).
+            controller('MainCtrl', function ($scope) {
+                $scope.draggableObjects = [
+{
+    "name": "A"
+},
+{
+    "name" : "B"
+},
+{
+    "name" : "C"
+},
+{
+    "name" : "D"
+},
+{
+    "name" : "E"
+},
+{
+    "name" : "F"
+},
+{
+    "name" : "G"
+},
+{
+    "name" : "H"
+},
+{
+    "name" : "I"
+},
+{
+    "name" : "J"
+},
+{
+    "name" : "K"
+},
+{
+    "name" : "L"
+},
+{
+    "name" : "M"
+},
+{
+    "name" : "N"
+},
+{
+    "name" : "O"
+},
+{
+    "name" : "P"
+},
+{
+    "name" : "Q"
+},
+{
+    "name" : "R"
+},
+{
+    "name" : "S"
+},
+{
+    "name" : "T"
+},
+{
+    "name" : "U"
+},
+{
+    "name" : "V"
+},
+{
+    "name" : "W"
+},
+{
+    "name" : "X"
+},
+{
+    "name" : "Y"
+},
+{
+    "name" : "Z"
+}
+];
+                $scope.onDropComplete = function (index, obj, evt) {
+                    var otherObj = $scope.draggableObjects[index];
+                    var otherIndex = $scope.draggableObjects.indexOf(obj);
+                    $scope.draggableObjects[index] = obj;
+                    $scope.draggableObjects[otherIndex] = otherObj;
+                    //class="draglist"
+                    //function(){}
+                     x=$scope.draggableObjects[index].name;
+                     y=$scope.draggableObjects[otherIndex].name;
+                     z=obj.name;
+                   
+                     angular.forEach($scope.draggableObjects, function(otherObj, obj, evt){
+                     // console.log("name = " +otherObj.name+ ", "+ obj );
+                    
+                    
+                     });
+                        console.log(x+" move to "+y+" index "+z);
+                       //this.$scope.draggableObjects = function($scope) {
+                        //$scope.draggableObjects.push(x+" move to "+y);}
+                       
+              }       
+
+            });
+
+</script>
+
+</body>
+<p><b>Source code : </b>http://htmlpreview.github.io/?https://github.com/fatlinesofcode/ngDraggable/blob/master/example-reorder.html</p>
+</html>
