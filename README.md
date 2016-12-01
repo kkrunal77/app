@@ -1,2 +1,1 @@
-# app
-sample App
+# Angular-App
